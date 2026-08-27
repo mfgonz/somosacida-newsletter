@@ -1,0 +1,20 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Secrets — never commit. Only .env.example belongs in git.
+.env
+.env.*
+!.env.example
+
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-error.log*
+.vercel
+.netlify
+next-env.d.ts
+tsconfig.tsbuildinfo
+coverage/
