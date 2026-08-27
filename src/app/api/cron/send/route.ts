@@ -3,6 +3,7 @@ import { timingSafeEqual } from "node:crypto";
 import { env } from "@/lib/env";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { processCampaignBatch } from "@/lib/email/send";
+import { processAutomations } from "@/lib/automations";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -55,7 +56,9 @@ async function run() {
     });
   }
 
-  return results;
+  const automations = await processAutomations();
+
+  return { campaigns: results, automations };
 }
 
 export async function GET(request: Request) {

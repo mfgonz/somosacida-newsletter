@@ -9,6 +9,7 @@ const PUBLIC_PREFIXES = [
   "/unsubscribe",
   "/preferences",
   "/confirm",
+  "/archive",
   "/api/public",
   "/api/webhooks",
   "/api/cron",

@@ -1,5 +1,6 @@
 import { verifyToken } from "@/lib/tokens";
 import { confirmContact } from "@/lib/compliance";
+import { triggerAutomations } from "@/lib/automations";
 import { PublicShell } from "@/components/public-shell";
 
 export const metadata = { title: "Confirmar suscripción", robots: { index: false } };
@@ -33,6 +34,11 @@ export default async function ConfirmPage({
       </PublicShell>
     );
   }
+
+  await triggerAutomations({
+    trigger: "contact_created",
+    contactId: verified.contactId,
+  });
 
   return (
     <PublicShell title="¡Suscripción confirmada!">

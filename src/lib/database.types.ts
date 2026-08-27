@@ -271,6 +271,12 @@ type AuditLogEntry = {
   created_at: string;
 }
 
+type RateLimit = {
+  key: string;
+  window_start: string;
+  count: number;
+}
+
 type Settings = {
   id: boolean;
   organization_name: string;
@@ -326,10 +332,17 @@ export type Database = {
         "automation_id" | "contact_id"
       >;
       audit_log: TableDef<AuditLogEntry, "action">;
+      rate_limits: TableDef<RateLimit, "key" | "window_start">;
       settings: TableDef<Settings>;
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      increment_rate_limit: {
+        Args: { p_key: string; p_window_start: string };
+        Returns: number;
+      };
+      prune_rate_limits: { Args: Record<string, never>; Returns: undefined };
+    };
     Enums: {
       contact_status: ContactStatus;
       campaign_status: CampaignStatus;
