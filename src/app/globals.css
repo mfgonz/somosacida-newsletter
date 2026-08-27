@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans;
+  }
+  ::selection {
+    @apply bg-primary text-primary-ink;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-ink ring-offset-2 ring-offset-canvas;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2
+           text-sm font-semibold transition disabled:opacity-50
+           disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-primary-ink hover:bg-primary-dark;
+  }
+  .btn-secondary {
+    @apply btn border border-line bg-surface text-ink hover:bg-canvas;
+  }
+  .btn-ghost {
+    @apply btn text-ink-soft hover:bg-canvas;
+  }
+  .btn-danger {
+    @apply btn bg-danger text-white hover:opacity-90;
+  }
+
+  .input {
+    @apply w-full rounded-md border border-line bg-surface px-3 py-2 text-sm
+           text-ink placeholder:text-muted focus:border-ink focus:outline-none
+           focus:ring-1 focus:ring-ink;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted;
+  }
+  .card {
+    @apply rounded-lg border border-line bg-surface;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-pill px-2.5 py-0.5 text-xs font-medium;
+  }
+}
