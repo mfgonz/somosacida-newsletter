@@ -28,14 +28,14 @@ export function buildMergeContext(
   org: { organizationName: string; postalAddress: string },
   campaignId?: string,
 ): MergeContext {
+  const unsubscribeToken = createToken("unsubscribe", contact.id);
   return {
     firstName: contact.first_name,
     lastName: contact.last_name,
     company: contact.company,
     email: contact.email,
-    unsubscribeUrl: appUrl(
-      `/unsubscribe/${createToken("unsubscribe", contact.id)}`,
-    ),
+    unsubscribeUrl: appUrl(`/unsubscribe/${unsubscribeToken}`),
+    oneClickUnsubscribeUrl: appUrl(`/api/public/unsubscribe/${unsubscribeToken}`),
     preferencesUrl: appUrl(
       `/preferences/${createToken("preferences", contact.id)}`,
     ),
@@ -205,7 +205,7 @@ export async function processCampaignBatch(
       fromName,
       fromEmail,
       replyTo,
-      unsubscribeUrl: ctx.unsubscribeUrl,
+      unsubscribeUrl: ctx.oneClickUnsubscribeUrl,
       headers: { "X-Entity-Ref-ID": recipient.id },
     });
 

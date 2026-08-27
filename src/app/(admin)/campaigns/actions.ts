@@ -208,7 +208,7 @@ export async function sendTestEmail(
     fromName: campaign.from_name || org.fromName,
     fromEmail: campaign.from_email || org.fromEmail,
     replyTo: campaign.reply_to || org.replyTo,
-    unsubscribeUrl: ctx.unsubscribeUrl,
+    unsubscribeUrl: ctx.oneClickUnsubscribeUrl,
   });
 
   if (!result.ok) return { ok: false, error: result.error };

@@ -11,7 +11,10 @@ export type MergeContext = {
   lastName?: string | null;
   email: string;
   company?: string | null;
+  /** Human-facing page linked from the footer. */
   unsubscribeUrl: string;
+  /** RFC 8058 endpoint for the List-Unsubscribe header; accepts POST. */
+  oneClickUnsubscribeUrl: string;
   preferencesUrl: string;
   webviewUrl?: string;
   organizationName: string;
