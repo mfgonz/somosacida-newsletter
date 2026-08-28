@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Drains campaign queues and advances drip automations. Scheduled campaigns
+# will not send without this running.
+[functions."send-queue"]
+  schedule = "*/5 * * * *"
