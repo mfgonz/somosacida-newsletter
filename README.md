@@ -5,7 +5,7 @@ newsletter designer, campaign sending, signup forms, drip automations, and
 subscriber analytics. Built to replace a paid service like Kit.com, with the
 client data staying in infrastructure you control.
 
-**Stack:** Next.js 16 (App Router) · Supabase (Postgres + Auth) · Resend · Tailwind
+**Stack:** Next.js 15 (App Router) · Supabase (Postgres + Auth) · Resend · Tailwind
 
 ---
 
@@ -90,7 +90,7 @@ A minimal DMARC record to start with, tightened to `quarantine` then `reject`
 once you've confirmed legitimate mail passes:
 
 ```
-_dmarc.somosacida.com   TXT   "v=DMARC1; p=none; rua=mailto:dmarc@somosacida.com"
+_dmarc.somosacida.com   TXT   "v=DMARC1; p=none; rua=mailto:mfgonz@somosacida.com"
 ```
 
 Then, in the app: **Settings** → set your organization name, sender identity,
@@ -105,29 +105,26 @@ opens, clicks, bounces, and complaints are never recorded.
 
 ## Deploying
 
-The Netlify project **`acida-newsletter`** already exists, with every
-environment variable set. It only needs to be connected to this repository:
+The Netlify project **`acida-newsletter`** is live at
+<https://acida-newsletter.netlify.app>, linked to this repository and building
+on every push. All eleven environment variables are set.
 
-1. <https://app.netlify.com/projects/acida-newsletter> → **Project configuration
-   → Build & deploy → Link repository**
-2. Choose `mfgonz/somosacida-newsletter`, branch
-   `claude/custom-email-newsletter-platform-qp9c9n` (or `main` once merged)
-3. Build settings come from `netlify.toml` — leave them as detected
+### One pitfall worth knowing
 
-Netlify then builds on every push. Live URL:
-<https://acida-newsletter.netlify.app>
+Netlify's **"Contains secret value"** checkbox withholds a variable's value
+from the function runtime. Setting the five secrets with that flag made every
+request throw at startup — the site returned a server error on every URL with
+an identical error digest, while the build itself succeeded.
 
-Two variables are placeholders and must be replaced before the app is fully
-functional (**Project configuration → Environment variables**):
+Leave that checkbox **unticked** for anything the running app must read. The
+values are still not public: they are server-side variables and never reach
+the browser. Only `NEXT_PUBLIC_`-prefixed variables are exposed to clients.
 
-| Variable | Where to get it |
-|---|---|
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API → `service_role` |
-| `RESEND_WEBHOOK_SECRET` | Resend → Webhooks → signing secret (create the webhook first) |
+### Changing the sender
 
-Until the service-role key is real, the admin dashboard works but public signup,
-unsubscribe, and sending do not — those paths deliberately run without a user
-session and depend on that key.
+The sender address in **Ajustes** is stored in the database and overrides
+`RESEND_FROM_EMAIL`. Prefer changing it there — it applies immediately and
+needs no redeploy.
 
 ---
 
