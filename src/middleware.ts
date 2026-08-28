@@ -13,6 +13,7 @@ const PUBLIC_PREFIXES = [
   "/api/public",
   "/api/webhooks",
   "/api/cron",
+  "/api/health",
 ];
 
 /** Matches only the prefix itself or a path segment under it, never "/loginfoo". */
