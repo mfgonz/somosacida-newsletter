@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";
-import { brand } from "@/lib/brand";
+import { Wordmark, Eyebrow } from "@/components/wordmark";
 import { NavLinks } from "@/components/nav-links";
 import { SignOutButton } from "@/components/sign-out-button";
 
@@ -14,11 +14,9 @@ export default async function AdminLayout({
   return (
     <div className="flex min-h-screen">
       <aside className="hidden w-60 shrink-0 border-r border-line bg-surface md:flex md:flex-col">
-        <Link href="/dashboard" className="flex items-center gap-2.5 px-5 py-5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-sm font-black text-primary-ink">
-            A
-          </span>
-          <span className="font-display text-sm font-bold">{brand.name}</span>
+        <Link href="/dashboard" className="block px-5 py-5">
+          <Wordmark className="text-2xl" />
+          <Eyebrow className="mt-1 block">Newsletter</Eyebrow>
         </Link>
 
         <NavLinks />

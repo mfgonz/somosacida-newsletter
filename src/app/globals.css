@@ -9,6 +9,10 @@
   body {
     @apply bg-canvas text-ink font-sans;
   }
+  /* The site sets headings tight and heavy; match it. */
+  h1, h2, h3 {
+    @apply font-display tracking-[-0.02em];
+  }
   ::selection {
     @apply bg-primary text-primary-ink;
   }
@@ -41,8 +45,9 @@
            text-ink placeholder:text-muted focus:border-ink focus:outline-none
            focus:ring-1 focus:ring-ink;
   }
+  /* Letterspaced mono labels, as on the site's nav and eyebrow rules. */
   .label {
-    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted;
+    @apply mb-1.5 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted;
   }
   .card {
     @apply rounded-lg border border-line bg-surface;

@@ -1,4 +1,4 @@
-import { brand } from "@/lib/brand";
+import { Wordmark } from "@/components/wordmark";
 
 /** Layout for pages subscribers see: unsubscribe, preferences, confirmation. */
 export function PublicShell({
@@ -12,10 +12,7 @@ export function PublicShell({
     <main className="flex min-h-screen items-center justify-center bg-canvas px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-6 text-center">
-          <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-md bg-primary">
-            <span className="font-black text-primary-ink">A</span>
-          </div>
-          <p className="font-display text-sm font-bold">{brand.name}</p>
+          <Wordmark className="text-4xl" />
         </div>
 
         <div className="card p-7">

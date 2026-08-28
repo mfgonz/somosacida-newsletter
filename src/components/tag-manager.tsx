@@ -3,11 +3,10 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createTag, deleteTag } from "@/app/(admin)/tags/actions";
+import { brand } from "@/lib/brand";
 
-const PALETTE = [
-  "#C8F31D", "#FF4D2E", "#2563EB", "#16A34A",
-  "#D97706", "#9333EA", "#DB2777", "#0891B2",
-];
+// The site's own categorical palette, so tags stay on-brand.
+const PALETTE = Object.values(brand.palette);
 
 type TagRow = { id: string; name: string; color: string; count: number };
 

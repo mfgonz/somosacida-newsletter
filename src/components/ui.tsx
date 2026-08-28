@@ -61,7 +61,7 @@ export function Stat({
 }) {
   return (
     <div className="card p-4">
-      <p className="text-xs font-semibold uppercase tracking-wide text-muted">
+      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
         {label}
       </p>
       <p className="mt-1.5 font-display text-2xl font-bold tabular-nums">

@@ -44,7 +44,7 @@ export function NavLinks() {
     <nav className="flex-1 overflow-y-auto px-3 pb-4">
       {SECTIONS.map((section) => (
         <div key={section.title} className="mb-5">
-          <p className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
+          <p className="px-2 pb-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
             {section.title}
           </p>
           <ul className="space-y-0.5">

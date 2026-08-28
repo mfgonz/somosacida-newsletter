@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { supabaseServer } from "@/lib/supabase/server";
 import { isAllowedAdmin } from "@/lib/env";
-import { brand } from "@/lib/brand";
+import { Wordmark, Eyebrow } from "@/components/wordmark";
 import { LoginForm } from "./login-form";
 
 export const metadata = { title: "Entrar" };
@@ -23,11 +23,10 @@ export default async function LoginPage({
     <main className="flex min-h-screen items-center justify-center bg-canvas px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-primary">
-            <span className="text-lg font-black text-primary-ink">A</span>
-          </div>
-          <h1 className="font-display text-2xl font-bold">{brand.name}</h1>
-          <p className="mt-1 text-sm text-muted">Panel de newsletter</p>
+          <Wordmark className="text-5xl" />
+          <p className="mt-3">
+            <Eyebrow>Panel de newsletter</Eyebrow>
+          </p>
         </div>
 
         <div className="card p-6">

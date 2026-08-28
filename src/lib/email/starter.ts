@@ -29,6 +29,7 @@ export function starterDesign(): Design {
         color: brand.email.text,
         fontSize: 16,
       },
+      { id: newBlockId(), type: "spacer", height: 8 },
       {
         id: newBlockId(),
         type: "button",

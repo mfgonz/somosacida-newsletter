@@ -25,6 +25,7 @@ const config: Config = {
         warning: brand.color.warning,
         danger: brand.color.danger,
         info: brand.color.info,
+        brand: brand.palette,
       },
       fontFamily: {
         sans: [brand.font.sans],
