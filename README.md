@@ -13,6 +13,7 @@ client data staying in infrastructure you control.
 
 - [Setup](#setup)
 - [Domain and DNS](#domain-and-dns-required-before-any-real-send)
+- [Deploying](#deploying)
 - [Scheduled sending](#scheduled-sending)
 - [Security model](#security-model)
 - [Branding](#branding)
@@ -102,6 +103,34 @@ opens, clicks, bounces, and complaints are never recorded.
 
 ---
 
+## Deploying
+
+The Netlify project **`acida-newsletter`** already exists, with every
+environment variable set. It only needs to be connected to this repository:
+
+1. <https://app.netlify.com/projects/acida-newsletter> → **Project configuration
+   → Build & deploy → Link repository**
+2. Choose `mfgonz/somosacida-newsletter`, branch
+   `claude/custom-email-newsletter-platform-qp9c9n` (or `main` once merged)
+3. Build settings come from `netlify.toml` — leave them as detected
+
+Netlify then builds on every push. Live URL:
+<https://acida-newsletter.netlify.app>
+
+Two variables are placeholders and must be replaced before the app is fully
+functional (**Project configuration → Environment variables**):
+
+| Variable | Where to get it |
+|---|---|
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API → `service_role` |
+| `RESEND_WEBHOOK_SECRET` | Resend → Webhooks → signing secret (create the webhook first) |
+
+Until the service-role key is real, the admin dashboard works but public signup,
+unsubscribe, and sending do not — those paths deliberately run without a user
+session and depend on that key.
+
+---
+
 ## Scheduled sending
 
 Large campaigns are queued and drained in batches, and scheduled campaigns need
@@ -170,24 +199,30 @@ and no user token can insert, update, or delete.
 
 ## Branding
 
-> **The colors and fonts currently in the app are placeholders.**
-> somosacida.com was unreachable from the build environment, so its real palette
-> could not be extracted.
+Extracted from somosacida.com. Everything visual comes from one file:
+**`src/lib/brand.ts`** — it feeds Tailwind, the admin UI, and email rendering.
+Nothing else hardcodes a brand colour.
 
-Everything visual comes from one file: **`src/lib/brand.ts`**. It feeds Tailwind,
-the admin UI, and email rendering. Replace the values there and the whole system
-follows — nothing else hardcodes a brand color.
+| Token | Value | Where it comes from |
+|---|---|---|
+| `ink` | `#2E3020` | The wordmark's deep olive; all primary text |
+| `canvas` | `#EAE7DB` | The site's warm bone ground (never white) |
+| `surface` | `#F4F1E7` | Cards, one step lighter than the ground |
+| `primary` | `#C6512C` | Burnt terracotta from the services section |
+| `accent` | `#D2C158` | Mustard from the audience grid |
 
-```ts
-color: {
-  primary: "#C8F31D",   // ← your real accent
-  ink:     "#0E0E10",   // ← your real text color
-  ...
-}
-```
+The categorical palette from the "Personas e instituciones" grid — mustard,
+olive, blue, pink, taupe, black — is exposed as `brand.palette` and used for tag
+colours, so labels stay on-brand.
 
-Send me the site's hex codes, font names, and logo (or screenshots) and this
-becomes a one-file change.
+**Type.** Archivo stands in for the site's heavy grotesque (wordmark, headings);
+DM Mono covers the letterspaced uppercase labels in the nav and eyebrow rules.
+Both load via `next/font`. If you own the licence to the original faces, drop
+them in and change the two imports in `src/app/layout.tsx`.
+
+The `ácida` wordmark is set typographically in `src/components/wordmark.tsx`
+rather than shipped as an image, so it stays crisp and inherits colour. Swap in
+the drawn original there if you prefer.
 
 ---
 
