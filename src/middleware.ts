@@ -15,9 +15,10 @@ const PUBLIC_PREFIXES = [
   "/api/cron",
 ];
 
+/** Matches only the prefix itself or a path segment under it, never "/loginfoo". */
 function isPublic(pathname: string) {
   return PUBLIC_PREFIXES.some(
-    (p) => pathname === p || pathname.startsWith(p),
+    (p) => pathname === p || pathname.startsWith(p.endsWith("/") ? p : `${p}/`),
   );
 }
 

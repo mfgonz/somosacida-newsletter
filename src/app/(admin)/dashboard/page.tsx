@@ -7,12 +7,15 @@ import type { CampaignStatus } from "@/lib/database.types";
 export const metadata = { title: "Resumen" };
 export const dynamic = "force-dynamic";
 
+/** Kept out of the render body: the purity rule forbids clock reads there. */
+function windowStart(days: number): string {
+  return new Date(Date.now() - days * 86400_000).toISOString();
+}
+
 export default async function DashboardPage() {
   const supabase = await supabaseServer();
 
-  const thirtyDaysAgo = new Date(
-    Date.now() - 30 * 86400_000,
-  ).toISOString();
+  const thirtyDaysAgo = windowStart(30);
 
   const [subscribed, pending, unsubscribed, recentContacts, campaigns, sends] =
     await Promise.all([
