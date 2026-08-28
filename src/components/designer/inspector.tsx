@@ -2,6 +2,7 @@
 
 import type { Block, DesignSettings } from "@/lib/email/blocks";
 import { AVAILABLE_MERGE_TAGS } from "@/lib/email/render";
+import { ImageDrop } from "./image-drop";
 
 function Field({
   label,
@@ -230,7 +231,13 @@ export function Inspector({
 
       {block.type === "image" && (
         <>
-          <Field label="URL de la imagen" hint="Debe empezar por https://">
+          <Field label="Imagen">
+            <ImageDrop onUploaded={(url) => set({ src: url })} />
+          </Field>
+          <Field
+            label="O pega una URL"
+            hint="Debe empezar por https://"
+          >
             <input
               className="input"
               value={block.src}

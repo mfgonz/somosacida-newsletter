@@ -181,7 +181,13 @@ export function Designer({
                       onDuplicate={() => duplicateBlock(block.id)}
                       onRemove={() => removeBlock(block.id)}
                     >
-                      <BlockPreview block={block} settings={design.settings} />
+                      <BlockPreview
+                        block={block}
+                        settings={design.settings}
+                        onUpload={(url) =>
+                          updateBlock(block.id, { src: url } as Partial<Block>)
+                        }
+                      />
                     </SortableBlock>
                   ))}
                 </SortableContext>

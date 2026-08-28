@@ -2,6 +2,7 @@
 
 import type { Block, DesignSettings } from "@/lib/email/blocks";
 import { sanitizeHtml } from "@/lib/email/sanitize";
+import { ImageDrop } from "./image-drop";
 
 /**
  * Approximates the rendered email inside the editor. The authoritative output
@@ -10,9 +11,12 @@ import { sanitizeHtml } from "@/lib/email/sanitize";
 export function BlockPreview({
   block,
   settings,
+  onUpload,
 }: {
   block: Block;
   settings: DesignSettings;
+  /** Lets an empty image block accept a file dropped straight onto the canvas. */
+  onUpload?: (url: string) => void;
 }) {
   const pad = { paddingLeft: settings.padding, paddingRight: settings.padding };
 
@@ -72,9 +76,13 @@ export function BlockPreview({
                 display: "inline-block",
               }}
             />
+          ) : onUpload ? (
+            <div onClick={(e) => e.stopPropagation()}>
+              <ImageDrop onUploaded={onUpload} compact />
+            </div>
           ) : (
             <div className="rounded border border-dashed border-line py-8 text-xs text-muted">
-              Añade la URL de una imagen
+              Añade una imagen
             </div>
           )}
         </div>
