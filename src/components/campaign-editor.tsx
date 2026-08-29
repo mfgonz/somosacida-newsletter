@@ -11,6 +11,13 @@ import {
   type Audience,
 } from "@/app/(admin)/campaigns/actions";
 import { parseDesign, type Design } from "@/lib/email/blocks";
+import { SectionHeading } from "@/components/ui";
+import {
+  IconContent,
+  IconAudience,
+  IconTest,
+  IconSchedule,
+} from "@/components/icons";
 
 type Option = { id: string; name: string };
 
@@ -208,7 +215,7 @@ export function CampaignEditor({
       ) : (
         <div className="mx-auto max-w-2xl space-y-4">
           <div className="card space-y-4 p-6">
-            <h2 className="font-display text-sm font-semibold">Contenido</h2>
+            <SectionHeading icon={<IconContent />} title="Contenido" />
 
             <div>
               <label className="label" htmlFor="subject">
@@ -245,7 +252,7 @@ export function CampaignEditor({
           </div>
 
           <div className="card space-y-4 p-6">
-            <h2 className="font-display text-sm font-semibold">Audiencia</h2>
+            <SectionHeading icon={<IconAudience />} title="Audiencia" />
 
             <select
               className="input"
@@ -298,10 +305,8 @@ export function CampaignEditor({
 
           {editable && (
             <>
-              <div className="card space-y-3 p-6">
-                <h2 className="font-display text-sm font-semibold">
-                  Enviar una prueba
-                </h2>
+              <div className="space-y-3 rounded-lg border-2 border-accent bg-accent/20 p-6">
+                <SectionHeading icon={<IconTest />} title="Enviar una prueba" accent />
                 <div className="flex gap-2">
                   <input
                     type="email"
@@ -318,13 +323,14 @@ export function CampaignEditor({
                     Enviar prueba
                   </button>
                 </div>
-                <p className="text-xs text-muted">
-                  Revisa siempre una prueba antes del envío real.
+                <p className="text-xs font-medium text-ink-soft">
+                  Esto solo te llega a ti. Revisa siempre una prueba antes del
+                  envío real de abajo.
                 </p>
               </div>
 
               <div className="card space-y-3 p-6">
-                <h2 className="font-display text-sm font-semibold">Programar</h2>
+                <SectionHeading icon={<IconSchedule />} title="Programar" />
                 <input
                   type="datetime-local"
                   className="input"

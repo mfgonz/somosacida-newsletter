@@ -414,3 +414,28 @@ export async function deleteCampaign(campaignId: string): Promise<Result> {
   revalidatePath("/campaigns");
   return { ok: true };
 }
+
+/**
+ * Campaigns belong to at most one folder — a plain label rather than a join
+ * table, since the set is small and a campaign is never in two places.
+ */
+export async function setCampaignFolder(
+  campaignId: string,
+  folder: string | null,
+): Promise<Result> {
+  const admin = await getAdmin();
+  if (!admin) return { ok: false, error: "No autorizado." };
+
+  const clean = (folder ?? "").trim().slice(0, 60);
+
+  const supabase = await supabaseServer();
+  const { error } = await supabase
+    .from("campaigns")
+    .update({ folder: clean || null })
+    .eq("id", campaignId);
+
+  if (error) return { ok: false, error: error.message };
+
+  revalidatePath("/campaigns");
+  return { ok: true };
+}

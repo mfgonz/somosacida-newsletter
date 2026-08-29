@@ -50,6 +50,34 @@ export function EmptyState({
   );
 }
 
+/**
+ * Section heading with an identifying icon, for use inside a card.
+ * `accent` is for sections that must stand apart from the normal flow.
+ */
+export function SectionHeading({
+  icon,
+  title,
+  accent = false,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  accent?: boolean;
+}) {
+  return (
+    <h2 className="flex items-center gap-2.5 font-display text-sm font-semibold">
+      <span
+        className={cn(
+          "flex h-7 w-7 shrink-0 items-center justify-center rounded-md",
+          accent ? "bg-accent text-accent-ink" : "bg-canvas text-ink-soft",
+        )}
+      >
+        {icon}
+      </span>
+      {title}
+    </h2>
+  );
+}
+
 export function Stat({
   label,
   value,

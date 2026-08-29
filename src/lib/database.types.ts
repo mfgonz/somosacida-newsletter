@@ -165,6 +165,7 @@ type Campaign = {
   text_snapshot: string | null;
   status: CampaignStatus;
   audience: Json;
+  folder: string | null;
   scheduled_at: string | null;
   send_started_at: string | null;
   sent_at: string | null;

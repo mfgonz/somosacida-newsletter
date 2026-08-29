@@ -7,7 +7,10 @@ import { cn } from "@/lib/utils";
 const SECTIONS: { title: string; items: { href: string; label: string }[] }[] = [
   {
     title: "General",
-    items: [{ href: "/dashboard", label: "Resumen" }],
+    items: [
+      { href: "/dashboard", label: "Resumen" },
+      { href: "/analytics", label: "Analítica" },
+    ],
   },
   {
     title: "Audiencia",

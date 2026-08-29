@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase/server";
-import { PageHeader, EmptyState, CampaignStatusBadge } from "@/components/ui";
-import { formatDateTime } from "@/lib/utils";
-import type { CampaignStatus } from "@/lib/database.types";
+import { PageHeader, EmptyState } from "@/components/ui";
+import { CampaignList, type CampaignRow } from "@/components/campaign-list";
 
 export const metadata = { title: "Campañas" };
 export const dynamic = "force-dynamic";
@@ -11,7 +10,9 @@ export default async function CampaignsPage() {
   const supabase = await supabaseServer();
   const { data: campaigns } = await supabase
     .from("campaigns")
-    .select("id,name,subject,status,scheduled_at,sent_at,total_recipients,created_at")
+    .select(
+      "id,name,subject,status,folder,scheduled_at,sent_at,total_recipients",
+    )
     .order("created_at", { ascending: false });
 
   return (
@@ -34,35 +35,7 @@ export default async function CampaignsPage() {
           actionHref="/campaigns/new"
         />
       ) : (
-        <div className="card divide-y divide-line">
-          {campaigns.map((c) => (
-            <Link
-              key={c.id}
-              href={`/campaigns/${c.id}`}
-              className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 hover:bg-canvas"
-            >
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-medium">{c.name}</p>
-                <p className="truncate text-xs text-muted">
-                  {c.subject || "Sin asunto"}
-                </p>
-              </div>
-              <div className="flex shrink-0 items-center gap-4 text-xs text-muted">
-                {c.total_recipients > 0 && (
-                  <span>{c.total_recipients.toLocaleString("es-ES")} dest.</span>
-                )}
-                <span>
-                  {c.sent_at
-                    ? formatDateTime(c.sent_at)
-                    : c.scheduled_at
-                      ? `Programada ${formatDateTime(c.scheduled_at)}`
-                      : "—"}
-                </span>
-                <CampaignStatusBadge status={c.status as CampaignStatus} />
-              </div>
-            </Link>
-          ))}
-        </div>
+        <CampaignList campaigns={campaigns as CampaignRow[]} />
       )}
     </>
   );
